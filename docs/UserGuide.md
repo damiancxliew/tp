@@ -142,6 +142,14 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Remark
+Edits a person's remark.
+
+**Format:** `remark INDEX r/REMARK`  
+Examples:
+- `remark 2 r/Likes baseball`
+- `remark 2 r/` (clears remark)
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
