@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddClassCommand;
 import seedu.address.logic.commands.JoinClassCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
