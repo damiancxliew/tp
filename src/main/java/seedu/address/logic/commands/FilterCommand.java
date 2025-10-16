@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -60,9 +59,9 @@ public class FilterCommand extends Command {
             return false;
         }
         FilterCommand o = (FilterCommand) other;
-        return role == o.role;  // Remove predicate comparison
+        return role == o.role;
     }
-    
+
     @Override
     public String toString() {
         return getClass().getCanonicalName() + "{role=" + role + "}";

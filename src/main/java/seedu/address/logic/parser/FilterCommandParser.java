@@ -18,21 +18,20 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     @Override
     public FilterCommand parse(String args) throws ParseException {
         requireNonNull(args);
-    
-        // Add leading space for tokenizer
+
         ArgumentMultimap map = ArgumentTokenizer.tokenize(" " + args, PREFIX_PERSON_TYPE);
-    
+
         // No preamble allowed, and ro/ is mandatory
         if (!arePrefixesPresent(map, PREFIX_PERSON_TYPE) || !map.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
-    
+
         String roleRaw = map.getValue(PREFIX_PERSON_TYPE).orElse("").trim();
         PersonType role = ParserUtil.parsePersonType(roleRaw);
-    
+
         return new FilterCommand(role);
     }
-    
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
