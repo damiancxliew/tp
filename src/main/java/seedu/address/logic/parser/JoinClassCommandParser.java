@@ -27,7 +27,7 @@ public class JoinClassCommandParser implements Parser<JoinClassCommand> {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(" " + trimmed, PREFIX_CLASS, PREFIX_NAME);
 
         if (!arePrefixesPresent(map, PREFIX_CLASS, PREFIX_NAME) || !map.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClassCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, JoinClassCommand.MESSAGE_USAGE));
         }
 
         // Only parse tutor name if present

@@ -8,6 +8,8 @@ import static java.util.Objects.requireNonNull;
 public enum PersonType {
     STUDENT, TUTOR, PARENT;
 
+    public static final String MESSAGE_CONSTRAINTS = "Role should only be STUDENT, PARENT or TUTOR";
+
     /**
      * Parses a case-insensitive string into a PersonType.
      *

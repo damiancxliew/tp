@@ -13,7 +13,7 @@ import seedu.address.model.person.PersonType;
  */
 public class ListChildrenCommand extends Command {
 
-    public static final String COMMAND_WORD = "children";
+    public static final String COMMAND_WORD = "listChildren";
     public static final String MESSAGE_SUCCESS = "Listed all children";
 
     @Override
