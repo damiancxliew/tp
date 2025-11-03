@@ -1341,7 +1341,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `addclass c/Math-101`<br>
       Expected: New class "Math-101" is created. Success message displayed.
 
-   1. Test case: `addclass c/Physics-201 tu/Mr. Smith` (where Mr. Smith is a tutor)<br>
+   1. Test case: `addclass c/Physics-201 tutor/Mr. Smith` (where Mr. Smith is a tutor)<br>
       Expected: New class "Physics-201" is created with Mr. Smith as tutor. Success message displayed.
 
 1. Creating a class with invalid parameters
@@ -1350,7 +1350,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `addclass c/Math-101`<br>
       Expected: No class created. Error message states class already exists.
 
-   1. Test case: `addclass c/Physics-201 tu/NonExistent Tutor`<br>
+   1. Test case: `addclass c/Physics-201 tutor/NonExistent Tutor`<br>
       Expected: No class created. Error message states tutor not found.
 
 1. Adding students to a class
