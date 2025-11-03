@@ -35,7 +35,7 @@ It covers how to install TutBook, perform common tasks, and troubleshoot issues.
 Follow these steps to set up TutBook on your computer.
 
 1. **Install Java 17 or above.**
- Download it [here](https://www.java.com/en/download/help/download_options.html).
+ Download it [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
  **Mac users:** Follow [this guide](https://se-education.org/guides/tutorials/javaInstallationMac.html) for the correct JDK setup.
 
 2. **Download TutBook.**
@@ -48,18 +48,19 @@ Follow these steps to set up TutBook on your computer.
  Open a command terminal, `cd` into the folder, and run:
 
  ```
- java -jar tutbook.jar
+ java -jar tutbook-v1.5.jar
  ```
 
  A window like the one below should appear:
  ![UI](images/Ui.png)
 
 5. **Try a few example commands.**
- * `help` — Opens the help window.
- * `list` — Lists all contacts.
- * `add n/John Doe p/98765432 e/johnd@example.com a/John Street ro/student` — Adds a student.
- * `delete 3` — Deletes the 3rd contact.
- * `exit` — Exits the app.
+
+* `help` — Opens the help window.
+* `list` — Lists all contacts.
+* `add n/John Doe p/98765432 e/johnd@example.com a/John Street ro/student` — Adds a student.
+* `delete 3` — Deletes the 3rd contact.
+* `exit` — Exits the app.
 
 6. **Refer to [Features](#features)** for details on each command.
 
@@ -73,9 +74,9 @@ This is the main interface of TutBook. It consists of:
 
 * People List
 * Class/Session List
-* This section switches intelligently with your command
+  * This section switches intelligently with your command
 * Command box
-* This is where you enter commands to interact with TutBook
+  * This is where you enter commands to interact with TutBook
 
 ---
 
@@ -177,7 +178,7 @@ Update contact information for an existing person.
 **Format:**
 
 ```
-edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…
+edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [ro/PERSON_TYPE] [t/TAG]
 ```
 
 **Examples:**
@@ -273,7 +274,7 @@ Create a new tuition class and add to the address book.
 **Format:**
 
 ```
-addclass c/CLASS_NAME [tu/TUTOR_NAME]
+addclass c/CLASS_NAME [tutor/TUTOR_NAME]
 ```
 
 * `CLASS_NAME` can contain spaces
@@ -282,7 +283,7 @@ addclass c/CLASS_NAME [tu/TUTOR_NAME]
 **Examples:**
 
 * `addclass c/Sec2-Math-A`
-* `addclass c/CS2101 tu/Alex Yeoh`
+* `addclass c/CS2101 tutor/Alex Yeoh`
 
 ![add class command](images/addClassCommand.png)
 
@@ -372,7 +373,7 @@ Record a session for a class.
 **Format:**
 
 ```
-addsession c/CLASS_NAME s/SESSION_NAME dt/DATETIME [l/LOCATION]
+addsession c/CLASS_NAME s/SESSION_NAME dt/DATETIME [lo/LOCATION]
 ```
 
 * The class must already exist
@@ -381,7 +382,7 @@ addsession c/CLASS_NAME s/SESSION_NAME dt/DATETIME [l/LOCATION]
 * Session names must be unique within a class
 
 **Example:**
-`addsession c/Math101 s/Week 3 Tutorial dt/2024-03-15 14:30 l/COM1-B103`
+`addsession c/Math101 s/Week 3 Tutorial dt/2024-03-15 14:30 lo/COM1-B103`
 
 ---
 
@@ -452,7 +453,7 @@ Record attendance for a class session.
 **Format:**
 
 ```
-attend n/NAME c/CLASS_NAME s/SESSION_NAME st/STATUS
+attend n/NAME c/CLASS_NAME s/SESSION_NAME status/STATUS
 ```
 
 * The student must be enrolled in the specified class
@@ -461,7 +462,7 @@ attend n/NAME c/CLASS_NAME s/SESSION_NAME st/STATUS
 * Attendance records can be viewed with [`viewsession`](#viewsession)
 
 **Example:**
-`attend n/John Doe c/Math101 s/Week 3 Tutorial st/PRESENT`
+`attend n/John Doe c/Math101 s/Week 3 Tutorial status/PRESENT`
 
 ---
 
@@ -498,15 +499,15 @@ Furthermore, certain edits can cause the TutBook to behave in unexpected ways (e
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE e/EMAIL a/ADDRESS ro/PERSON_TYPE [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 ro/student`
-**Add Class** | `addclass c/CLASS_NAME [tu/TUTOR_NAME]` <br> e.g., `addclass c/Sec2-Math-A tu/Ms Lim`
-**Add Session** | `addsession c/CLASS_NAME s/SESSION_NAME dt/DATETIME [l/LOCATION]` <br> e.g., `addsession c/Math101 s/Week 3 Tutorial dt/2024-03-15 14:30 l/COM1-B103`
-**Attend** | `attend n/NAME c/CLASS_NAME s/SESSION_NAME st/STATUS` <br> e.g., `attend n/John Doe c/Math101 s/Week 3 Tutorial st/PRESENT`
+**Add Class** | `addclass c/CLASS_NAME [tutor/TUTOR_NAME]` <br> e.g., `addclass c/Sec2-Math-A tutor/Ms Lim`
+**Add Session** | `addsession c/CLASS_NAME s/SESSION_NAME dt/DATETIME [lo/LOCATION]` <br> e.g., `addsession c/Math101 s/Week 3 Tutorial dt/2024-03-15 14:30 lo/COM1-B103`
+**Attend** | `attend n/NAME c/CLASS_NAME s/SESSION_NAME status/STATUS` <br> e.g., `attend n/John Doe c/Math101 s/Week 3 Tutorial status/PRESENT`
 **Children** | `childrenof n/PARENT_NAME` <br> e.g., `childrenof n/John Doe`
 **Clear** | `clear`
 **Delete** | `delete INDEX` <br> e.g., `delete 3`
 **Delete Class** | `deleteclass c/CLASS_NAME` <br> e.g., `deleteclass c/Sec3-Math-A`
 **Delete Session** | `deletesession c/CLASS_NAME s/SESSION_NAME` <br> e.g., `deletesession c/Math101 s/Week 3 Tutorial`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [ro/PERSON_TYPE [t/TAGS]​` <br> e.g., `edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [ro/PERSON_TYPE] [t/TAGS]​` <br> e.g., `edit 2 n/James Lee e/jameslee@example.com`
 **Edit Class** | `editclass o/OLD_CLASS_NAME c/NEW_CLASS_NAME` <br> e.g., `editclass o/Sec2-Math-A c/Sec3-Math-A`
 **Exit** | `exit`
 **Filter** | `filter ro/STUDENT\|TUTOR\|PARENT` <br> e.g., `filter ro/student`
@@ -517,7 +518,7 @@ Action | Format, Examples
 **List** | `list`
 **List Class** | `listclass`
 **List Parents** | `listparents [n/CHILD_NAME]` <br> e.g., `listparents n/Damian`
-**List Session** | `listsession c/CLASS_NAME` <br> e.g., `listsession c/Math101`
+**List Sessions** | `listsessions c/CLASS_NAME` <br> e.g., `listsessions c/Math101`
 **Remove From** | `unjoin n/NAME c/CLASS` <br> e.g., `unjoin n/Damian c/Sec4 Math`
 **View Session** | `viewsession c/CLASS_NAME s/SESSION_NAME` <br> e.g., `viewsession c/Math101 s/Week 3 Tutorial`
 
