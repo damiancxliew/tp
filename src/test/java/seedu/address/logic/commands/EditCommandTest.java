@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
@@ -21,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -258,7 +256,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_changeStudentToTutor_warnsAboutDataLoss() throws Exception {
+    public void execute_changeStudentToTutor_removesRelationships() throws Exception {
         Model modelWithRelationships = new ModelManager(new AddressBook(), new UserPrefs());
 
         // Create parent and student
@@ -280,12 +278,13 @@ public class EditCommandTest {
                 .withPersonType(PersonType.TUTOR).build();
         EditCommand editCommand = new EditCommand(Index.fromOneBased(2), descriptor);
 
-        // Should throw exception warning about data loss
-        assertThrows(CommandException.class, () -> editCommand.execute(modelWithRelationships));
+        editCommand.execute(modelWithRelationships);
 
-        // Verify relationships are still intact (not deleted since conversion was prevented)
+        // Get parent from model (it should still be a Parent)
         Person parentFromModel = modelWithRelationships.getFilteredPersonList().get(0);
-        assertEquals(1, ((Parent) parentFromModel).getChildren().size());
+
+        // Verify parent no longer has student as child
+        assertEquals(0, ((Parent) parentFromModel).getChildren().size());
     }
 
     @Test
@@ -313,7 +312,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_changeParentToTutor_warnsAboutDataLoss() throws Exception {
+    public void execute_changeParentToTutor_removesRelationships() throws Exception {
         Model modelWithRelationships = new ModelManager(new AddressBook(), new UserPrefs());
 
         // Create parent and student
@@ -335,12 +334,13 @@ public class EditCommandTest {
                 .withPersonType(PersonType.TUTOR).build();
         EditCommand editCommand = new EditCommand(Index.fromOneBased(1), descriptor);
 
-        // Should throw exception warning about data loss
-        assertThrows(CommandException.class, () -> editCommand.execute(modelWithRelationships));
+        editCommand.execute(modelWithRelationships);
 
-        // Verify relationships are still intact (not deleted since conversion was prevented)
+        // Get student from model (it should still be a Student)
         Person studentFromModel = modelWithRelationships.getFilteredPersonList().get(1);
-        assertEquals(1, ((Student) studentFromModel).getParents().size());
+
+        // Verify student no longer has parent
+        assertEquals(0, ((Student) studentFromModel).getParents().size());
     }
 
     @Test
@@ -404,7 +404,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_changeStudentToParent_warnsAboutDataLoss() throws Exception {
+    public void execute_changeStudentToParent_removesTuitionClassRelationships() throws Exception {
         Model modelWithRelationships = new ModelManager(new AddressBook(), new UserPrefs());
 
         // Create student and tuition class
@@ -423,15 +423,14 @@ public class EditCommandTest {
                 .withPersonType(PersonType.PARENT).build();
         EditCommand editCommand = new EditCommand(Index.fromOneBased(1), descriptor);
 
-        // Should throw exception warning about data loss
-        assertThrows(CommandException.class, () -> editCommand.execute(modelWithRelationships));
+        editCommand.execute(modelWithRelationships);
 
-        // Verify student is still in class (conversion was prevented)
-        assertEquals(1, tuitionClass.getStudents().size());
+        // Verify tuition class no longer has student
+        assertEquals(0, tuitionClass.getStudents().size());
     }
 
     @Test
-    public void execute_changeTutorToStudent_warnsAboutDataLoss() throws Exception {
+    public void execute_changeTutorToStudent_removesTuitionClassRelationships() throws Exception {
         Model modelWithRelationships = new ModelManager(new AddressBook(), new UserPrefs());
 
         // Create tutor and tuition class
@@ -450,9 +449,10 @@ public class EditCommandTest {
                 .withPersonType(PersonType.STUDENT).build();
         EditCommand editCommand = new EditCommand(Index.fromOneBased(1), descriptor);
 
-        assertThrows(CommandException.class, () -> editCommand.execute(modelWithRelationships));
+        editCommand.execute(modelWithRelationships);
 
-        assertTrue(tuitionClass.isAssignedToTutor());
+        // Verify tuition class no longer has tutor
+        assertFalse(tuitionClass.isAssignedToTutor());
     }
 
 }
